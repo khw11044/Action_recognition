@@ -42,9 +42,11 @@ label_map = {label:num for num, label in enumerate(actions)}
 sequences, labels = [], []
 for action in actions:
     if action == 'nothing':
-        no_sequences = 90
+        no_sequences = 100
+    elif action == 'ready':
+        no_sequences = 100
     else:
-        no_sequences = 30
+        no_sequences = 70
     for sequence in range(no_sequences):
         window = []
         for frame_num in range(sequence_length):
@@ -75,7 +77,7 @@ model.compile(optimizer='Adam', loss='categorical_crossentropy', metrics=['acc']
 
 # 모델 학습
 history = model.fit(X_train, y_train, 
-          epochs=1000, 
+          epochs=500, 
           batch_size=512,
           validation_split=0.2,
           callbacks=[tb_callback]).history

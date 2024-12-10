@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 colors = [(245,117,16), (117,245,16), (16,117,245)]
 
-def prob_viz(res, actions, input_frame, colors):
+def prob_viz(res, actions, input_frame):
     output_frame = input_frame.copy()
     for num, prob in enumerate(res):
         cv2.rectangle(output_frame, (0,60+num*40), (int(prob*100), 90+num*40), colors[num], -1)

@@ -14,16 +14,17 @@ mp_drawing = mp.solutions.drawing_utils # Drawing utilities
 DATA_PATH = os.path.join('MP_Data') 
 
 # Actions that we try to detect
-actions = np.array(['nothing'])
+actions = np.array(['stop'])
 
 # Thirty videos worth of data
-no_sequences = 60
+no_sequences = 20
 
 # Videos are going to be 30 frames in length
 sequence_length = 15
 
+start = 50
 for action in actions: 
-    for sequence in range(90, 90+no_sequences):
+    for sequence in range(start, start+no_sequences):
         try: 
             os.makedirs(os.path.join(DATA_PATH, action, str(sequence)))
         except:
@@ -38,7 +39,7 @@ with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=
     # Loop through actions
     for action in actions:
         # Loop through sequences aka videos
-        for sequence in range(30, 30+no_sequences):
+        for sequence in range(start, start+no_sequences):
             # Loop through video length aka sequence length
             for frame_num in range(sequence_length):
 
@@ -55,13 +56,13 @@ with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=
                 # NEW Apply wait logic
                 if frame_num == 0: 
                     cv2.putText(image, f'STARTING COLLECTION : {action}', (120,200), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,255, 0), 4, cv2.LINE_AA)
-                    cv2.putText(image, f'Video Number {sequence}/30', (30,50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 6, cv2.LINE_AA)
+                    cv2.putText(image, f'Video Number {sequence}/{start+no_sequences}', (30,50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 6, cv2.LINE_AA)
                     # Show to screen
                     image = cv2.resize(image, None, fx=2, fy=2, interpolation=cv2.INTER_LINEAR)
                     cv2.imshow('OpenCV Feed', image)
                     cv2.waitKey(1000)
                 else: 
-                    cv2.putText(image, f'Video Number {sequence}/30', (30,50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 6, cv2.LINE_AA)
+                    cv2.putText(image, f'Video Number {sequence}/{start+no_sequences}', (30,50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 6, cv2.LINE_AA)
                     # Show to screen
                     image = cv2.resize(image, None, fx=2, fy=2, interpolation=cv2.INTER_LINEAR)
                     cv2.imshow('OpenCV Feed', image)

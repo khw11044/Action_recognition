@@ -20,9 +20,6 @@ DATA_PATH = os.path.join('MP_Data')
 # Actions that we try to detect
 actions = np.array(['nothing', 'ready', 'stop'])
 
-# Thirty videos worth of data
-no_sequences = 30
-
 # Videos are going to be 30 frames in length
 sequence_length = 15
 
@@ -87,7 +84,7 @@ with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=
                 sentence = sentence[-1:]
 
             # Viz probabilities
-            image = prob_viz(res, actions, image, colors)
+            image = prob_viz(res, actions, image)
             
             
         cv2.rectangle(image, (0,0), (640, 40), (245, 117, 16), -1)
